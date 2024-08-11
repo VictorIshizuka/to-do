@@ -1,77 +1,31 @@
+import { AddTask } from "./components/AddTask";
+import { CountDone } from "./components/CountDone";
+import { GroupButtons } from "./components/GroupButtons";
+import { Li } from "./components/LiItem";
+import { Ul } from "./components/Ul";
+import { Select } from "./components/Select";
+
+import { initialItems as tasks } from "./data/initialItens";
+
 function App() {
   return (
     <div className="container">
       <div className="row">
-        <div className="col-12">
-          <h1 className="text-center">TO-DO List</h1>
-        </div>
+        <h1 className="text-center">TO-DO List</h1>
 
         <div className="col-8">
-          <h5 className="text-end">Done: 1/3</h5>
-          <select className="form-control mb-4">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-          </select>
-          <div className="form-check checkboxes">
-            <ul>
-              <li>
-                <label htmlFor="">
-                  <input type="checkbox" className="form-check-input" />
-                  Default checkbox
-                </label>
-                <button className="btn btn-sm btn-outline-danger justify-content-end">
-                  Delete
-                </button>
-              </li>
-              <li>
-                <label htmlFor="">
-                  <input type="checkbox" className="form-check-input" />
-                  Default checkbox
-                </label>
-                <button className="btn btn-sm btn-outline-danger justify-content-end">
-                  Delete
-                </button>
-              </li>
-              <li>
-                <label htmlFor="">
-                  <input type="checkbox" className="form-check-input" />
-                  Default checkbox
-                </label>
-                <button className="btn btn-sm btn-outline-danger justify-content-end">
-                  Delete
-                </button>
-              </li>
-            </ul>
-          </div>
+          <CountDone />
+          <Select />
+
+          <Ul>
+            {tasks.map((task, index) => {
+              return <Li label=" Default checkbox" key={index} task={task} />;
+            })}
+          </Ul>
         </div>
         <div className="col-4">
-          <form>
-            <h4>Add Task</h4>
-            <input
-              className="form-control"
-              placeholder="Add task"
-              type="text"
-            />
-            <button className="btn btn-secondary w-100 mt-2">
-              Add to list
-            </button>
-          </form>
-          <div className="mt-5">
-            <button className="btn btn-primary w-100 d-block mb-2">
-              Mark all as completed
-            </button>
-            <button className="btn btn-primary w-100 d-block mb-2">
-              Mark all as incomplete
-            </button>
-            <button className="btn btn-primary w-100 d-block mb-2">
-              Reset to initial
-            </button>
-            <button className="btn btn-primary w-100 d-block mb-2">
-              Remove all items
-            </button>
-          </div>
+          <AddTask />
+          <GroupButtons />
         </div>
       </div>
     </div>
