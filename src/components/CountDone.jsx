@@ -1,3 +1,3 @@
-export const CountDone = () => {
-  return <h5 className="text-end">Done: 1/3</h5>;
+export const CountDone = ({ count, taskLength }) => {
+  return <h5 className="text-end">{`Done: ${count}/${taskLength}`}</h5>;
 };

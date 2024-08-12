@@ -1,7 +1,7 @@
 import { Button } from "./Button";
 import { Input } from "./Input";
 
-export const Li = ({ task, onClick, handleToggleItem, handleDeleteTask }) => {
+export const Li = ({ task, handleToggleItem, handleDeleteTask, onChange }) => {
   return (
     <li>
       <label htmlFor="">
