@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { initialItems } from "./data/initialItens";
 
@@ -9,7 +9,11 @@ import { Li as Task } from "./components/LiItem";
 import { Ul as List } from "./components/Ul";
 
 function App() {
-  const [tasks, setTasks] = useState(initialItems);
+  const tasksFromLocalStorage = JSON.parse(localStorage.getItem("tasks"));
+
+  const [tasks, setTasks] = useState(() => {
+    return tasksFromLocalStorage || initialItems;
+  });
   const [sortBy, setSortBy] = useState("default");
 
   function handleAddTask(newTask) {
@@ -53,13 +57,23 @@ function App() {
   function handleSelect(e) {
     setSortBy(e.target.value);
   }
-  const sortTasks = [...tasks].sort((a, b) => {
-    if (sortBy === "completed") {
-      return b.completed - a.completed;
-    } else if (sortBy === "not-completed") {
-      return a.completed - b.completed;
-    }
-  });
+  const sortTasks = useMemo(
+    () =>
+      [...tasks].sort((a, b) => {
+        if (sortBy === "completed") {
+          return b.completed - a.completed;
+        } else if (sortBy === "not-completed") {
+          return a.completed - b.completed;
+        }
+        return 0;
+      }),
+    [sortBy, tasks]
+  );
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
+
   return (
     <div className="container">
       <div className="row">
